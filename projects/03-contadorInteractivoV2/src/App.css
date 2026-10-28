@@ -190,6 +190,12 @@
   justify-content: center;
 }
 
+.displayCount {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
 button {
 
   width: fit-content;
