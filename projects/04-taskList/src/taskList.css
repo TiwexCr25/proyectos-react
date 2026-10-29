@@ -1,0 +1,20 @@
+.mainContainer {
+    background: linear-gradient(to bottom,
+                #1e1f23,
+                #525461
+            );
+    padding: 18px;
+    border-radius: 20px;
+}
+
+.displayTask {
+    color: white;
+}
+
+.elementTask {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    list-style: none;
+    gap: 8px;
+}
