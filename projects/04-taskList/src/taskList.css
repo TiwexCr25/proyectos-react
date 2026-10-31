@@ -11,15 +11,16 @@
 }
 
 .displayTask {
+    padding: 0;
     color: white;
 }
 
 .elementTask {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: space-between;
     list-style: none;
-    gap: 8px;
+    gap: 10px;
 }
 
 .filterButtons {
@@ -40,4 +41,36 @@ hr {
     width: 100%;
     background: rgba(255, 255, 255, 0.18);
     margin: 8px 0;
+}
+
+.taskIcon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.btnIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    transition: 0.2s ease;
+    border-radius: 50%;
+
+}
+
+.btnIcon:hover {
+    background-color: #292a30;
+    scale: 1.15;
+}
+
+.btnIcon:active {
+    background-color: #4c4e58;
+    scale: 0.9;
 }

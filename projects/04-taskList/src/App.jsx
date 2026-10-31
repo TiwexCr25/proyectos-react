@@ -24,6 +24,10 @@ function App() {
     setTasks([...tasks,newTask])
   }
 
+  const deleteTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
   return (
     <div className='mainContainer'>
       <h1>Lista de Tareas</h1>
@@ -37,7 +41,7 @@ function App() {
       </div>
       <FilterButtons/>
       <hr />
-      <TaskList tasks={tasks}/>
+      <TaskList tasks={tasks} onDelete={deleteTask}/>
     </div>
   )
 }
