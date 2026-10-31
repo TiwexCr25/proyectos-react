@@ -37,11 +37,6 @@
     transition: background 0.2s, transform 0.2s;
 }
 
-.statCard:hover {
-    background: #4c4e58;
-    transform: translateY(-2px);
-}
-
 .statNumber {
     font-size: 32px;
     font-weight: 700;

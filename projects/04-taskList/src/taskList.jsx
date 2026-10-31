@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './taskList.css'
 import { ButtonIcon } from './ButtonIcon'
 
-export function TaskList({tasks,onDelete,onEdit,onToggleTask}){
+export function TaskList({tasks,anyTask,onDelete,onEdit,onToggleTask}){
     const [editingId, setEditingId] = useState(null)
     const [newText,setNewText] = useState('')
 
@@ -19,7 +19,9 @@ export function TaskList({tasks,onDelete,onEdit,onToggleTask}){
     return (
         <ul className='displayTask'>
             {
-                tasks.map((task,index) => {
+                tasks.length === 0
+                ? <p>{anyTask ? 'No hay tareas en esta categoría' : 'No tienes ninguna tarea'}</p>
+                : tasks.map((task,index) => {
                     return (
                     <li className='elementTask' key={task.id}>
                         <div className='row'>

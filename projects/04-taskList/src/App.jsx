@@ -68,15 +68,20 @@ function App() {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        }}
         />
-        <button onClick={addTask}>Agregar Tarea</button>
+        <button onClick={addTask} disabled={text.trim() ? false : true}>Agregar Tarea</button>
       </div>
 
       <FilterButtons onFilter={handleFilter}/>
 
       <hr />
-      <p>Tareas: <span>{tasks.length}</span></p>
-      <TaskList tasks={filteredTasks} 
+      <TaskList tasks={filteredTasks}
+      anyTask={tasks.length >= 1 ? true : false}
       onDelete={deleteTask} 
       onEdit={editTask}
       onToggleTask={toggleTask}
