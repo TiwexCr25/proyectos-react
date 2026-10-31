@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './taskList.css'
 import { ButtonIcon } from './ButtonIcon'
 
-export function TaskList({tasks,onDelete,onEdit}){
+export function TaskList({tasks,onDelete,onEdit,onToggleTask}){
     const [editingId, setEditingId] = useState(null)
     const [newText,setNewText] = useState('')
 
@@ -23,7 +23,7 @@ export function TaskList({tasks,onDelete,onEdit}){
                     return (
                     <li className='elementTask' key={index}>
                         <div className='row'>
-                            <input type="checkBox" />
+                            <input type="checkBox" checked={task.completed} onChange={() => onToggleTask(task.id)}/>
                             { editingId === task.id 
                                 ? <input type='text' value={newText} onChange={e => setNewText(e.target.value)}/>
                                 : <p>{task.text}</p>
