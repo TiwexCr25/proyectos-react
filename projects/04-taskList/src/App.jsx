@@ -10,10 +10,19 @@ function App() {
     const savedTask = localStorage.getItem('tasks');
     return savedTask ? JSON.parse(savedTask) : [];
   })
+  const [filter, setFilter] = useState(null)
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   },[tasks])
+
+  const filteredTasks = filter === null
+  ? tasks
+  : tasks.filter(task => task.completed === filter);
+  
+  const handleFilter = (completed) => {
+    setFilter(completed);
+  }
 
   const addTask = () =>{
     if (text.trim() === '') return
@@ -24,9 +33,11 @@ function App() {
     }
     
     setTasks([...tasks,newTask])
+    setText('')
   }
 
   const deleteTask = (id) => {
+
     setTasks(tasks.filter(task => task.id !== id))
   }
 
@@ -46,6 +57,7 @@ function App() {
     ))
   }
 
+
   return (
     <div className='mainContainer'>
       <h1>Lista de Tareas</h1>
@@ -59,11 +71,11 @@ function App() {
         <button onClick={addTask}>Agregar Tarea</button>
       </div>
 
-      <FilterButtons/>
+      <FilterButtons onFilter={handleFilter}/>
 
       <hr />
       <p>Tareas: <span>{tasks.length}</span></p>
-      <TaskList tasks={tasks} 
+      <TaskList tasks={filteredTasks} 
       onDelete={deleteTask} 
       onEdit={editTask}
       onToggleTask={toggleTask}
