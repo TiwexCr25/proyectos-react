@@ -3,6 +3,7 @@ import './App.css'
 import './taskList.css'
 import { TaskList } from './taskList.jsx'
 import { FilterButtons } from './filterButtons.jsx'
+import { TaskStatistics } from './TaskStatistics.jsx'
 
 function App() {
   const [text,setText] = useState('')
@@ -27,7 +28,7 @@ function App() {
   const addTask = () =>{
     if (text.trim() === '') return
     const newTask = {
-      id: tasks.length + 1,
+      id: crypto.randomUUID(),
       text: text,
       completed: false
     }
@@ -80,6 +81,10 @@ function App() {
       onEdit={editTask}
       onToggleTask={toggleTask}
       />
+      <TaskStatistics 
+      total={tasks.length} 
+      pending={tasks.filter(task => task.completed === false).length}
+      completed={tasks.filter(task => task.completed === true).length}/>
     </div>
   )
 }

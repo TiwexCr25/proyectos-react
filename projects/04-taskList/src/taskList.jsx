@@ -21,7 +21,7 @@ export function TaskList({tasks,onDelete,onEdit,onToggleTask}){
             {
                 tasks.map((task,index) => {
                     return (
-                    <li className='elementTask' key={index}>
+                    <li className='elementTask' key={task.id}>
                         <div className='row'>
                             <input type="checkBox" checked={task.completed} onChange={() => onToggleTask(task.id)}/>
                             { editingId === task.id 
