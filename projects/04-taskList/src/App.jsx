@@ -28,6 +28,14 @@ function App() {
     setTasks(tasks.filter(task => task.id !== id))
   }
 
+  const editTask = (id,newText) => {
+    setTasks(tasks => tasks.map(task =>
+      task.id === id
+      ? {...task,text: newText}
+      : task
+    ))
+  }
+
   return (
     <div className='mainContainer'>
       <h1>Lista de Tareas</h1>
@@ -41,7 +49,10 @@ function App() {
       </div>
       <FilterButtons/>
       <hr />
-      <TaskList tasks={tasks} onDelete={deleteTask}/>
+      <TaskList tasks={tasks} 
+      onDelete={deleteTask} 
+      onEdit={editTask}
+      />
     </div>
   )
 }
