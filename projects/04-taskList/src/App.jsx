@@ -62,7 +62,7 @@ function App() {
       <FilterButtons/>
 
       <hr />
-
+      <p>Tareas: <span>{tasks.length}</span></p>
       <TaskList tasks={tasks} 
       onDelete={deleteTask} 
       onEdit={editTask}
