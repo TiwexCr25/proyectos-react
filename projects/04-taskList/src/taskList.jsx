@@ -31,7 +31,7 @@ export function TaskList({tasks,onDelete,onEdit,onToggleTask}){
                         </div>
                         <div className='row'>
                             { editingId === task.id 
-                                ? <ButtonIcon icon="edit" onClick={() => saveEdit(task.id)}/>
+                                ? <ButtonIcon icon="done" onClick={() => saveEdit(task.id)}/>
                                 : <ButtonIcon icon="edit" onClick={() => editMode(task)}/>
                             }
                             <ButtonIcon icon="delete" onClick={() => onDelete(task.id)}/>
