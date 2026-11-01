@@ -1,7 +1,22 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './App.css'
+import UserCard from './UserCard'
 
 function App() {
+  const [users,setUsers] = useState([])
+
+  useEffect(() => {
+    const getUsers = async() => {
+      const response = await fetch(
+        'https://jsonplaceholder.typicode.com/users'
+      )
+
+      const data = await response.json();
+
+      setUsers(data)
+    }
+    getUsers()
+  }, [])
 
   return (
     <>
@@ -33,6 +48,11 @@ function App() {
           Limpiar filtros
         </button>
       </form>
+      <section className="user-grid" aria-label="Lista de usuarios">
+        {users.map(user => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </section>
     </>
   )
 }
