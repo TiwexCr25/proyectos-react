@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import UserCard from './UserCard'
+import { UserCard } from './components/UserCard.jsx'
+import { UserCardDetails } from './components/UserCardDetail.jsx'
 
 const URL = 'https://jsonplaceholder.typicode.com/users'
 
@@ -11,6 +12,7 @@ function App () {
   const [text, setText] = useState('')
   const [filterType, setFilterType] = useState('name')
   const [filterCity, setFilterCity] = useState('all')
+  const [userDetail, setUserDetail] = useState(null)
 
   const searchedUsers = users.filter(user =>
     user[filterType].toLowerCase().includes(text.toLowerCase())
@@ -23,6 +25,10 @@ function App () {
   const filteredUsers = searchedUsers.filter(user =>
     filterCity === 'all' || user.address.city === filterCity
   )
+
+  const onDetails = (user) => {
+    setUserDetail(user)
+  }
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -110,10 +116,16 @@ function App () {
           : error
             ? <p>{error}</p>
             : filteredUsers.length > 0
-              ? <UserCard users={filteredUsers} />
+              ? <UserCard users={filteredUsers} onDetails={onDetails} />
               : <p>No existen coincidencias</p>
         }
       </section>
+      {userDetail && (
+        <UserCardDetails
+          user={userDetail}
+          onClose={() => setUserDetail(null)}
+        />
+      )}
     </>
   )
 }

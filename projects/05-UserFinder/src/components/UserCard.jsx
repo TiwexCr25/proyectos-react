@@ -1,6 +1,6 @@
-import './UserCard.css'
+import '../UserCard.css'
 
-function UserCard ({ users, onDetails }) {
+export function UserCard ({ users, onDetails }) {
   console.log(users)
   return (
     <section>
@@ -52,5 +52,3 @@ function UserCard ({ users, onDetails }) {
     </section>
   )
 }
-
-export default UserCard
