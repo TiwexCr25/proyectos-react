@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './css/productForm.css'
 
-export function ProductForm () {
+export function ProductForm ({ onSubmitProduct }) {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -22,8 +22,15 @@ export function ProductForm () {
     e.preventDefault()
 
     console.log(formData)
+    onSubmitProduct(formData)
+    e.currentTarget.reset()
+    setFormData({
+      name: '',
+      category: '',
+      price: '',
+      stock: ''
+    })
   }
-
   return (
     <>
       <form id='formProducto' onSubmit={handleSubmit}>
