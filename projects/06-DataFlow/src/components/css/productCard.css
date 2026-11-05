@@ -7,8 +7,8 @@
   --pc-chip-text: #0f5c5c;
 
   box-sizing: border-box;
-  width: 100%;
-  max-width: 320px;
+  width: 200px;
+  max-width: 200px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -84,4 +84,16 @@
     --pc-chip-bg: #123b3b;
     --pc-chip-text: #8fd6d2;
   }
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-auto-rows: 180px;
+  justify-content: center;
+  gap: 15px;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
