@@ -8,6 +8,21 @@ function App () {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [text, setText] = useState('')
+  const [filterType, setFilterType] = useState('name')
+  const [filterCity, setFilterCity] = useState('all')
+
+  const searchedUsers = users.filter(user =>
+    user[filterType].toLowerCase().includes(text.toLowerCase())
+  )
+
+  const availableCities = [
+    ...new Set(searchedUsers.map(user => user.address.city))
+  ]
+
+  const filteredUsers = searchedUsers.filter(user =>
+    filterCity === 'all' || user.address.city === filterCity
+  )
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -49,19 +64,42 @@ function App () {
           <input
             type='text'
             placeholder='Buscar usuarios...'
+            onChange={(e) => { setText(e.target.value) }}
+            value={text}
           />
         </label>
 
         <label className='control-field'>
           <span>Filtrar por</span>
-          <select>
-            <option value='all'>Todas las opciones</option>
+          <select onChange={(e) => setFilterType(e.target.value)}>
             <option value='name'>Nombre</option>
             <option value='email'>Correo electrónico</option>
           </select>
         </label>
 
-        <button className='clear-filters' type='button'>
+        <label className='control-field'>
+          <span>Filtrar por</span>
+          <select onChange={(e) => setFilterCity(e.target.value)}>
+            <option value='all'>Todas las ciudades</option>
+            {
+              availableCities.map(city => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))
+            }
+          </select>
+        </label>
+
+        <button
+          className='clear-filters'
+          type='button'
+          onClick={() => {
+            setText('')
+            setFilterType('name')
+            setFilterCity('all')
+          }}
+        >
           Limpiar filtros
         </button>
       </form>
@@ -71,7 +109,9 @@ function App () {
           ? <p>Cargando...</p>
           : error
             ? <p>{error}</p>
-            : users.map(user => (<UserCard key={user.id} user={user} />))
+            : filteredUsers.length > 0
+              ? <UserCard users={filteredUsers} />
+              : <p>No existen coincidencias</p>
         }
       </section>
     </>

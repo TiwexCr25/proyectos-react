@@ -5,91 +5,91 @@ import { TaskList } from './taskList.jsx'
 import { FilterButtons } from './filterButtons.jsx'
 import { TaskStatistics } from './TaskStatistics.jsx'
 
-function App() {
-  const [text,setText] = useState('')
-  const [tasks,setTasks] = useState(() => {
-    const savedTask = localStorage.getItem('tasks');
-    return savedTask ? JSON.parse(savedTask) : [];
+function App () {
+  const [text, setText] = useState('')
+  const [tasks, setTasks] = useState(() => {
+    const savedTask = localStorage.getItem('tasks')
+    return savedTask ? JSON.parse(savedTask) : []
   })
   const [filter, setFilter] = useState(null)
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  },[tasks])
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const filteredTasks = filter === null
-  ? tasks
-  : tasks.filter(task => task.completed === filter);
-  
+    ? tasks
+    : tasks.filter(task => task.completed === filter)
+
   const handleFilter = (completed) => {
-    setFilter(completed);
+    setFilter(completed)
   }
 
-  const addTask = () =>{
+  const addTask = () => {
     if (text.trim() === '') return
     const newTask = {
       id: crypto.randomUUID(),
-      text: text,
+      text,
       completed: false
     }
-    
-    setTasks([...tasks,newTask])
+
+    setTasks([...tasks, newTask])
     setText('')
   }
 
   const deleteTask = (id) => {
-
     setTasks(tasks.filter(task => task.id !== id))
   }
 
-  const editTask = (id,newText) => {
+  const editTask = (id, newText) => {
     setTasks(tasks => tasks.map(task =>
       task.id === id
-      ? {...task,text: newText}
-      : task
+        ? { ...task, text: newText }
+        : task
     ))
   }
 
   const toggleTask = (id) => {
     setTasks(tasks => tasks.map(task =>
       task.id === id
-      ? {...task,completed: !task.completed}
-      : task
+        ? { ...task, completed: !task.completed }
+        : task
     ))
   }
-
 
   return (
     <div className='mainContainer'>
       <h1>Lista de Tareas</h1>
 
       <div className='InputTaskContainer'>
-        <input 
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            addTask();
-          }
-        }}
+        <input
+          type='text'
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              addTask()
+            }
+          }}
         />
-        <button onClick={addTask} disabled={text.trim() ? false : true}>Agregar Tarea</button>
+        <button onClick={addTask} disabled={!text.trim()}>Agregar Tarea</button>
       </div>
 
-      <FilterButtons onFilter={handleFilter}/>
+      <FilterButtons onFilter={handleFilter} />
 
       <hr />
-      <TaskList tasks={filteredTasks}
-      anyTask={tasks.length >= 1 ? true : false}
-      onDelete={deleteTask} 
-      onEdit={editTask}
-      onToggleTask={toggleTask}
+      <TaskList
+        tasks={filteredTasks}
+        anyTask={tasks.length >= 1}
+        onDelete={deleteTask}
+        onEdit={editTask}
+        onToggleTask={toggleTask}
       />
-      <TaskStatistics 
-      total={tasks.length} 
-      pending={tasks.filter(task => task.completed === false).length}
-      completed={tasks.filter(task => task.completed === true).length}/>
+      <TaskStatistics
+        total={tasks.length}
+        pending={tasks.filter(task => task.completed === false).length}
+        completed={tasks.filter(task => task.completed === true).length}
+      />
     </div>
   )
 }

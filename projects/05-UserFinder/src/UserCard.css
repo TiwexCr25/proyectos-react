@@ -113,3 +113,12 @@
   outline: 2px solid #1762df;
   outline-offset: 2px;
 }
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  align-content: start;
+  gap: 16px;
+  padding: 0 24px 24px;
+  text-align: left;
+}
