@@ -1,16 +1,11 @@
 import './App.css'
 import { initialProducts } from './data/products.js'
+import { ProductCard } from './components/ProductCard.jsx'
 
 function App () {
   return (
     <>
-      <ul>
-        {
-        initialProducts.map(product =>
-          <li key={product.id}>{product.name}</li>
-        )
-      }
-      </ul>
+      <ProductCard products={initialProducts} />
     </>
   )
 }
