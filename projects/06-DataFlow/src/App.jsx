@@ -16,10 +16,15 @@ function App () {
     setProducts([...products, newProduct])
   }
 
+  const removeProduct = (id) => {
+    if (confirm('¿Eliminar producto?')) {
+      setProducts(products => products.filter(product => product.id !== id))
+    }
+  }
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
-      <ProductCard products={products} />
+      <ProductCard products={products} onRemoveProduct={removeProduct} />
     </main>
   )
 }
