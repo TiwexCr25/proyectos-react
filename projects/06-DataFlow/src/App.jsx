@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 function App () {
   const [products, setProducts] = useState(initialProducts)
-  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [editingProduct, setEditingProduct] = useState(null)
 
   const addProduct = (product) => {
     const newProduct = {
@@ -25,8 +25,12 @@ function App () {
   }
 
   const editProduct = (id) => {
-    console.log('edit', id)
-    setIsEditOpen(true)
+    const product = products.find(product => product.id === id)
+    setEditingProduct(product)
+  }
+
+  const cancelEditProduct = () => {
+    setEditingProduct(null)
   }
 
   return (
@@ -37,7 +41,13 @@ function App () {
         onRemoveProduct={removeProduct}
         onEditProduct={editProduct}
       />
-      <ProductEdit isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} />
+      {
+        editingProduct &&
+          <ProductEdit
+            product={editingProduct}
+            onClose={cancelEditProduct}
+          />
+}
     </main>
   )
 }

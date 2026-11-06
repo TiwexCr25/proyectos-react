@@ -1,8 +1,6 @@
 import './css/productEdit.css'
 
-export function ProductEdit ({ isOpen = false, onClose = () => {} }) {
-  if (!isOpen) return null
-
+export function ProductEdit ({ product, onClose }) {
   const handleSubmit = (event) => {
     event.preventDefault()
   }
@@ -10,7 +8,6 @@ export function ProductEdit ({ isOpen = false, onClose = () => {} }) {
   return (
     <div
       className='product-edit-modal__backdrop'
-      onClick={onClose}
     >
       <form
         id='product-edit-form'
@@ -26,12 +23,21 @@ export function ProductEdit ({ isOpen = false, onClose = () => {} }) {
           <div className='product-edit-modal__group'>
             <div className='product-edit-modal__field'>
               <label htmlFor='product-edit-name'>Nombre</label>
-              <input id='product-edit-name' name='name' type='text' />
+              <input
+                id='product-edit-name' name='name' type='text'
+                defaultValue={product.name}
+              />
             </div>
             <div className='product-edit-modal__field'>
               <label htmlFor='product-edit-category'>Categoría</label>
-              <select id='product-edit-category' name='category'>
+              <select
+                id='product-edit-category' name='category'
+                defaultValue={product.category}
+              >
                 <option value=''>Selecciona una opción</option>
+                {!['limpieza', 'alimentos'].includes(product.category) && (
+                  <option value={product.category}>{product.category}</option>
+                )}
                 <option value='limpieza'>Limpieza</option>
                 <option value='alimentos'>Alimentos</option>
               </select>
@@ -40,18 +46,23 @@ export function ProductEdit ({ isOpen = false, onClose = () => {} }) {
           <div className='product-edit-modal__group'>
             <div className='product-edit-modal__field'>
               <label htmlFor='product-edit-price'>Precio</label>
-              <input id='product-edit-price' name='price' type='number' min='0' step='0.01' />
+              <input
+                id='product-edit-price' name='price' type='number' min='0' step='0.01'
+                defaultValue={product.price}
+              />
             </div>
             <div className='product-edit-modal__field'>
               <label htmlFor='product-edit-stock'>Stock</label>
-              <input id='product-edit-stock' name='stock' type='number' min='0' step='1' />
+              <input
+                id='product-edit-stock' name='stock' type='number' min='0' step='1'
+                defaultValue={product.stock}
+              />
             </div>
           </div>
         </fieldset>
         <div className='product-edit-modal__actions'>
           <button type='submit'>Guardar</button>
-          <button type='button' onClick={onClose}>Cerrar</button>
-          <button type='reset'>Limpiar</button>
+          <button type='button' onClick={() => onClose()}>Cerrar</button>
         </div>
       </form>
     </div>
