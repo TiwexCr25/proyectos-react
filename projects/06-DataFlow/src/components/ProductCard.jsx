@@ -1,6 +1,6 @@
 import './css/productCard.css'
 
-export function ProductCard ({ products, onRemoveProduct }) {
+export function ProductCard ({ products, onRemoveProduct, onEditProduct }) {
   return (
     <ul>
       {
@@ -9,10 +9,16 @@ export function ProductCard ({ products, onRemoveProduct }) {
             <article className='product-card'>
               <div className='headerContainer'>
                 <span className='product-card__category'>{product.category}</span>
-                <button
-                  className='product-card__delete'
-                  onClick={() => onRemoveProduct(product.id)}
-                />
+                <div className='group'>
+                  <button
+                    className='product-card__delete'
+                    onClick={() => onRemoveProduct(product.id)}
+                  />
+                  <button
+                    className='product-card__edit'
+                    onClick={() => onEditProduct(product.id)}
+                  />
+                </div>
               </div>
               <h3 className='product-card__name'>{product.name}</h3>
 

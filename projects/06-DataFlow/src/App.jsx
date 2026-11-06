@@ -21,10 +21,19 @@ function App () {
       setProducts(products => products.filter(product => product.id !== id))
     }
   }
+
+  const editProduct = (id) => {
+    console.log('edit')
+  }
+
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
-      <ProductCard products={products} onRemoveProduct={removeProduct} />
+      <ProductCard
+        products={products}
+        onRemoveProduct={removeProduct}
+        onEditProduct={editProduct}
+      />
     </main>
   )
 }
