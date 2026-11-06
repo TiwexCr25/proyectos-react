@@ -1,0 +1,151 @@
+.product-edit-modal__backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.551);
+  box-sizing: border-box;
+}
+
+.product-edit-modal__form {
+  --edit-surface: #ffffff;
+  --edit-text: #1c2230;
+  --edit-muted: #5d6678;
+  --edit-border: #e1e5ec;
+  --edit-accent: #0f5c5c;
+  --edit-accent-text: #ffffff;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: fit-content;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--edit-surface);
+  color: var(--edit-text);
+  border: 1px solid var(--edit-border);
+  border-radius: 12px;
+  font-family: inherit;
+  color-scheme: light;
+}
+
+.product-edit-modal__fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 0;
+  border-bottom: 1px solid var(--edit-border);
+}
+
+.product-edit-modal__title {
+  padding: 0;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.product-edit-modal__group {
+  display: flex;
+  gap: 6px;
+}
+
+.product-edit-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-edit-modal__field label {
+  color: var(--edit-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.product-edit-modal__field input,
+.product-edit-modal__field select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--edit-surface);
+  color: var(--edit-text);
+  border: 1px solid var(--edit-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.product-edit-modal__field input:hover,
+.product-edit-modal__field select:hover {
+  border-color: var(--edit-muted);
+}
+
+.product-edit-modal__field input:focus-visible,
+.product-edit-modal__field select:focus-visible,
+.product-edit-modal__actions button:focus-visible {
+  outline: 2px solid var(--edit-accent);
+  outline-offset: 2px;
+}
+
+.product-edit-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.product-edit-modal__actions button {
+  width: fit-content;
+  padding: 10px 18px;
+  border: 1px solid var(--edit-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.product-edit-modal__actions button[type='submit'] {
+  background: var(--edit-accent);
+  color: var(--edit-accent-text);
+  border-color: var(--edit-accent);
+}
+
+.product-edit-modal__actions button[type='submit']:hover {
+  background: color-mix(in srgb, var(--edit-accent) 85%, black);
+  border-color: color-mix(in srgb, var(--edit-accent) 85%, black);
+}
+
+.product-edit-modal__actions button[type='reset'],
+.product-edit-modal__actions button[type='button'] {
+  background: transparent;
+  color: var(--edit-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .product-edit-modal__form {
+    --edit-surface: #1a1f2b;
+    --edit-text: #eef1f6;
+    --edit-muted: #9aa3b5;
+    --edit-border: #2d3445;
+    --edit-accent: #8fd6d2;
+    --edit-accent-text: #0d2b2b;
+
+    color-scheme: dark;
+  }
+
+  .product-edit-modal__actions button[type='submit']:hover {
+    background: color-mix(in srgb, var(--edit-accent) 85%, white);
+    border-color: color-mix(in srgb, var(--edit-accent) 85%, white);
+  }
+}

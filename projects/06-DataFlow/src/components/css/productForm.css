@@ -102,7 +102,7 @@
   border-color: var(--pc-error);
 }
 
-#formProducto .buttonsContainer {
+#formProducto .product-form-actions {
   display: flex;
   justify-content: center;
   gap: 6px;

@@ -77,7 +77,7 @@ export function ProductForm ({ onSubmitProduct }) {
           </div>
 
         </fieldset>
-        <div className='buttonsContainer'>
+        <div className='product-form-actions'>
           <button type='submit'>Guardar</button>
           <button type='reset'>Limpiar</button>
         </div>
