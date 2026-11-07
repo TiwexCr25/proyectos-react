@@ -1,8 +1,31 @@
+import { useState } from 'react'
 import './css/productEdit.css'
 
-export function ProductEdit ({ product, onClose }) {
-  const handleSubmit = (event) => {
-    event.preventDefault()
+export function ProductEdit ({ product, onClose, onSave }) {
+  const [formData, setFormData] = useState({
+    name: product.name,
+    category: product.category,
+    price: product.price,
+    stock: product.stock
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value.trim() === '' ? prev[name] : value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onSave(product.id, formData)
+    setFormData({
+      name: '',
+      category: '',
+      price: '',
+      stock: ''
+    })
   }
 
   return (
@@ -26,6 +49,7 @@ export function ProductEdit ({ product, onClose }) {
               <input
                 id='product-edit-name' name='name' type='text'
                 defaultValue={product.name}
+                onChange={handleChange}
               />
             </div>
             <div className='product-edit-modal__field'>
@@ -33,6 +57,7 @@ export function ProductEdit ({ product, onClose }) {
               <select
                 id='product-edit-category' name='category'
                 defaultValue={product.category}
+                onChange={handleChange}
               >
                 <option value=''>Selecciona una opción</option>
                 {!['limpieza', 'alimentos'].includes(product.category) && (
@@ -49,6 +74,7 @@ export function ProductEdit ({ product, onClose }) {
               <input
                 id='product-edit-price' name='price' type='number' min='0' step='0.01'
                 defaultValue={product.price}
+                onChange={handleChange}
               />
             </div>
             <div className='product-edit-modal__field'>
@@ -56,6 +82,7 @@ export function ProductEdit ({ product, onClose }) {
               <input
                 id='product-edit-stock' name='stock' type='number' min='0' step='1'
                 defaultValue={product.stock}
+                onChange={handleChange}
               />
             </div>
           </div>

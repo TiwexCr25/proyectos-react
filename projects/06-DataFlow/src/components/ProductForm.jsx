@@ -21,7 +21,6 @@ export function ProductForm ({ onSubmitProduct }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log(formData)
     onSubmitProduct(formData)
     e.currentTarget.reset()
     setFormData({

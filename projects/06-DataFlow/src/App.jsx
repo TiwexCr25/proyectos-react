@@ -33,6 +33,16 @@ function App () {
     setEditingProduct(null)
   }
 
+  const saveEditProduct = (id, editedProduct) => {
+    console.log(editedProduct)
+    setProducts(products => products.map(product =>
+      product.id === id
+        ? { ...product, ...editedProduct }
+        : product
+    ))
+    setEditingProduct(null)
+  }
+
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
@@ -46,6 +56,7 @@ function App () {
           <ProductEdit
             product={editingProduct}
             onClose={cancelEditProduct}
+            onSave={saveEditProduct}
           />
 }
     </main>
