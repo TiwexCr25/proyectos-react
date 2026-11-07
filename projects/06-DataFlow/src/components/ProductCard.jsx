@@ -2,7 +2,7 @@ import './css/productCard.css'
 
 export function ProductCard ({ products, onRemoveProduct, onEditProduct }) {
   return (
-    <ul>
+    <ul className='product-card-list'>
       {
         products.length > 0
           ? (

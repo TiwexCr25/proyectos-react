@@ -13,6 +13,7 @@ function App () {
 
   const [inputText, setInputText] = useState('')
   const [filterCategory, setFilterCategory] = useState('all')
+  const [filterStock, setFilterStock] = useState(1)
 
   const addProduct = (product) => {
     const newProduct = {
@@ -52,14 +53,21 @@ function App () {
     setInputText(inputValue)
   }
 
-  const handleChangeFilter = (filterCategory) => {
+  const handleChangeCategory = (filterCategory) => {
     setFilterCategory(filterCategory)
+  }
+
+  const handleChangeStock = (filterStock) => {
+    setFilterStock(filterStock)
   }
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
     .filter(product =>
       filterCategory === 'all' || product.category === filterCategory
+    )
+    .filter(product =>
+      product.stock >= filterStock
     )
 
   return (
@@ -71,7 +79,8 @@ function App () {
         />
         <ProductFilters
           products={products}
-          onFilter={handleChangeFilter}
+          onFilterCategory={handleChangeCategory}
+          onFilterStock={handleChangeStock}
         />
       </div>
       <ProductCard
