@@ -1,6 +1,7 @@
 import './App.css'
 import { initialProducts } from './data/products.js'
 import { ProductForm } from './components/ProductForm.jsx'
+import { ProductSearch } from './components/ProductSearch.jsx'
 import { ProductCard } from './components/ProductCard.jsx'
 import { ProductEdit } from './components/ProductEdit.jsx'
 import { useState } from 'react'
@@ -8,6 +9,7 @@ import { useState } from 'react'
 function App () {
   const [products, setProducts] = useState(initialProducts)
   const [editingProduct, setEditingProduct] = useState(null)
+  const [inputText, setInputText] = useState('')
 
   const addProduct = (product) => {
     const newProduct = {
@@ -43,11 +45,21 @@ function App () {
     setEditingProduct(null)
   }
 
+  const handleChangeText = (inputValue) => {
+    setInputText(inputValue)
+  }
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(inputText.toLowerCase()))
+
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
+      <ProductSearch
+        onSearch={handleChangeText}
+      />
       <ProductCard
-        products={products}
+        products={filteredProducts}
         onRemoveProduct={removeProduct}
         onEditProduct={editProduct}
       />
