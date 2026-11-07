@@ -12,7 +12,7 @@ function App () {
   const [editingProduct, setEditingProduct] = useState(null)
 
   const [inputText, setInputText] = useState('')
-  const [filterCategory, setFilterCategory] = useState('')
+  const [filterCategory, setFilterCategory] = useState('all')
 
   const addProduct = (product) => {
     const newProduct = {
@@ -58,6 +58,9 @@ function App () {
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
+    .filter(product =>
+      filterCategory === 'all' || product.category === filterCategory
+    )
 
   return (
     <main>
