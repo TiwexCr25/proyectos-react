@@ -5,3 +5,8 @@ main {
   padding: 15px;
   gap: 15px;
 }
+
+.group {
+  display: flex;
+  gap: 8px;
+}

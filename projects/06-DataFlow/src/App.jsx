@@ -2,6 +2,7 @@ import './App.css'
 import { initialProducts } from './data/products.js'
 import { ProductForm } from './components/ProductForm.jsx'
 import { ProductSearch } from './components/ProductSearch.jsx'
+import { ProductFilters } from './components/ProductFilters.jsx'
 import { ProductCard } from './components/ProductCard.jsx'
 import { ProductEdit } from './components/ProductEdit.jsx'
 import { useState } from 'react'
@@ -9,7 +10,9 @@ import { useState } from 'react'
 function App () {
   const [products, setProducts] = useState(initialProducts)
   const [editingProduct, setEditingProduct] = useState(null)
+
   const [inputText, setInputText] = useState('')
+  const [filterCategory, setFilterCategory] = useState('')
 
   const addProduct = (product) => {
     const newProduct = {
@@ -49,15 +52,25 @@ function App () {
     setInputText(inputValue)
   }
 
+  const handleChangeFilter = (filterCategory) => {
+    setFilterCategory(filterCategory)
+  }
+
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
 
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
-      <ProductSearch
-        onSearch={handleChangeText}
-      />
+      <div className='group'>
+        <ProductSearch
+          onSearch={handleChangeText}
+        />
+        <ProductFilters
+          products={products}
+          onFilter={handleChangeFilter}
+        />
+      </div>
       <ProductCard
         products={filteredProducts}
         onRemoveProduct={removeProduct}

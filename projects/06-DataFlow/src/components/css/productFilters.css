@@ -1,0 +1,61 @@
+.product-filters {
+  --filter-surface: #ffffff;
+  --filter-text: #1c2230;
+  --filter-muted: #5d6678;
+  --filter-border: #e1e5ec;
+  --filter-accent: #0f5c5c;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--filter-surface);
+  color: var(--filter-text);
+  border: 1px solid var(--filter-border);
+  border-radius: 12px;
+  font-family: inherit;
+  text-align: left;
+}
+
+.product-filters__label {
+  color: var(--filter-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.product-filters__select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--filter-surface);
+  color: var(--filter-text);
+  border: 1px solid var(--filter-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.product-filters__select:hover {
+  border-color: var(--filter-muted);
+}
+
+.product-filters__select:focus-visible {
+  border-color: var(--filter-accent);
+  outline: 2px solid var(--filter-accent);
+  outline-offset: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .product-filters {
+    --filter-surface: #1a1f2b;
+    --filter-text: #eef1f6;
+    --filter-muted: #9aa3b5;
+    --filter-border: #2d3445;
+    --filter-accent: #8fd6d2;
+  }
+}
