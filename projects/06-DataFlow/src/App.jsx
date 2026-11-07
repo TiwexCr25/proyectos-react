@@ -50,7 +50,7 @@ function App () {
   }
 
   const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(inputText.toLowerCase()))
+    product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
 
   return (
     <main>
