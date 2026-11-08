@@ -100,6 +100,11 @@ function App () {
     }
   })
 
+  const resetFilters = () => {
+    setFilterCategory('all')
+    setFilterStock(1)
+  }
+
   return (
     <main>
       <ProductForm onSubmitProduct={addProduct} />
@@ -110,8 +115,11 @@ function App () {
         />
         <ProductFilters
           products={products}
+          filterCategory={filterCategory}
+          filterStock={filterStock}
           onFilterCategory={handleChangeCategory}
           onFilterStock={handleChangeStock}
+          onResetFilters={resetFilters}
         />
         <ProductOrder
           onSelectedOrder={hangleChangeOrder}
