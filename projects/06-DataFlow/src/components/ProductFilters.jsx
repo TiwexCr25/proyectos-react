@@ -8,6 +8,8 @@ export function ProductFilters ({
   onFilterStock,
   onResetFilters
 }) {
+  const categories = [...new Set(products.map(product => product.category).filter(Boolean))]
+
   return (
     <section className='product-filters'>
       <div className='filters-Container'>
@@ -23,11 +25,11 @@ export function ProductFilters ({
           >
             <option value='all'>Todas las categorias</option>
             {
-            products.length > 0
+            categories.length > 0
               ? (
-                  products.map(product =>
-                    <option key={product.category} value={product.category}>
-                      {product.category}
+                  categories.map(category =>
+                    <option key={category} value={category}>
+                      {category}
                     </option>
                   )
                 )

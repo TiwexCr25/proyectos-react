@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import { initialProducts } from './data/products.js'
 import { ProductForm } from './components/ProductForm.jsx'
 import { ProductSearch } from './components/ProductSearch.jsx'
 import { ProductFilters } from './components/ProductFilters.jsx'
@@ -10,7 +9,10 @@ import { ProductEdit } from './components/ProductEdit.jsx'
 import { InventoryStatistics } from './components/InventoryStatistics.jsx'
 
 function App () {
-  const [products, setProducts] = useState(initialProducts)
+  const [products, setProducts] = useState(() => {
+    const savedProducts = localStorage.getItem('products')
+    return savedProducts ? JSON.parse(savedProducts) : []
+  })
   const [editingProduct, setEditingProduct] = useState(null)
 
   const [inputText, setInputText] = useState('')
@@ -20,6 +22,10 @@ function App () {
   const [orderType, setOrderType] = useState('none')
 
   const [showAllProducts, setShowAllProducts] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products))
+  }, [products])
 
   const addProduct = (product) => {
     const newProduct = {
