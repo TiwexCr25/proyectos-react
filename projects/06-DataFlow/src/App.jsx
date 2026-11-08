@@ -3,6 +3,7 @@ import { initialProducts } from './data/products.js'
 import { ProductForm } from './components/ProductForm.jsx'
 import { ProductSearch } from './components/ProductSearch.jsx'
 import { ProductFilters } from './components/ProductFilters.jsx'
+import { ProductOrder } from './components/ProductOrder.jsx'
 import { ProductCard } from './components/ProductCard.jsx'
 import { ProductEdit } from './components/ProductEdit.jsx'
 import { useState } from 'react'
@@ -14,6 +15,10 @@ function App () {
   const [inputText, setInputText] = useState('')
   const [filterCategory, setFilterCategory] = useState('all')
   const [filterStock, setFilterStock] = useState(1)
+
+  const [orderType, setOrderType] = useState('none')
+
+  const [showAllProducts, setShowAllProducts] = useState(false)
 
   const addProduct = (product) => {
     const newProduct = {
@@ -61,14 +66,39 @@ function App () {
     setFilterStock(filterStock)
   }
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
-    .filter(product =>
-      filterCategory === 'all' || product.category === filterCategory
-    )
-    .filter(product =>
-      product.stock >= filterStock
-    )
+  const hangleChangeOrder = (order) => {
+    setOrderType(order)
+  }
+
+  const toggleShowAllProducos = (toggle) => {
+    setShowAllProducts(showAllProducts => toggle)
+  }
+
+  const filteredProducts = showAllProducts
+    ? products
+    : products.filter(product =>
+      product.name.toLowerCase().includes(inputText.trim().toLowerCase()))
+      .filter(product =>
+        filterCategory === 'all' || product.category === filterCategory
+      )
+      .filter(product =>
+        product.stock >= filterStock
+      )
+
+  const OrderProducts = filteredProducts.toSorted((a, b) => {
+    switch (orderType) {
+      case 'name':
+        return a.name.localeCompare(b.name)
+      case 'price-ascend':
+        return Number(a.price) - Number(b.price)
+      case 'price-descend':
+        return Number(b.price) - Number(a.price)
+      case 'quantity':
+        return Number(b.stock) - Number(a.stock)
+      default:
+        return 0
+    }
+  })
 
   return (
     <main>
@@ -76,15 +106,19 @@ function App () {
       <div className='group'>
         <ProductSearch
           onSearch={handleChangeText}
+          onShowAll={toggleShowAllProducos}
         />
         <ProductFilters
           products={products}
           onFilterCategory={handleChangeCategory}
           onFilterStock={handleChangeStock}
         />
+        <ProductOrder
+          onSelectedOrder={hangleChangeOrder}
+        />
       </div>
       <ProductCard
-        products={filteredProducts}
+        products={OrderProducts}
         onRemoveProduct={removeProduct}
         onEditProduct={editProduct}
       />
