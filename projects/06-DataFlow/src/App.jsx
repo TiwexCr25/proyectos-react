@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import { initialProducts } from './data/products.js'
 import { ProductForm } from './components/ProductForm.jsx'
@@ -6,7 +7,7 @@ import { ProductFilters } from './components/ProductFilters.jsx'
 import { ProductOrder } from './components/ProductOrder.jsx'
 import { ProductCard } from './components/ProductCard.jsx'
 import { ProductEdit } from './components/ProductEdit.jsx'
-import { useState } from 'react'
+import { InventoryStatistics } from './components/InventoryStatistics.jsx'
 
 function App () {
   const [products, setProducts] = useState(initialProducts)
@@ -137,7 +138,8 @@ function App () {
             onClose={cancelEditProduct}
             onSave={saveEditProduct}
           />
-}
+      }
+      <InventoryStatistics products={products} />
     </main>
   )
 }
