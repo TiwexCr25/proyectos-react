@@ -1,5 +1,8 @@
-import './App.css'
 import { useEffect, useState } from 'react'
+
+import './App.css'
+
+import { SearchBar } from './componenets/SearchBar'
 
 function App () {
   const [user, setUser] = useState([])
@@ -21,9 +24,27 @@ function App () {
     getUser()
   }, [])
 
+  const searchUser = async (user) => {
+    console.log('c')
+    try {
+      setIsLoading(true)
+      const response = await fetch(`https://api.github.com/users/${user}`)
+      const data = await response.json()
+      setUser(data)
+    } catch (e) {
+      throw new Error('Error')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <>
       <h1>GItHub Explorer</h1>
+      <p>Buscar usuario de GitHub: </p>
+      <SearchBar
+        onSearch={searchUser}
+      />
       {isLoading && <p>Cardando...</p>}
 
       <p>Usuario: {user.name}</p>
