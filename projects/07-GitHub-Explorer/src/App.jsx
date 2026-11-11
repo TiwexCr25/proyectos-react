@@ -10,6 +10,7 @@ function App () {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
+  const [selectedUser, setSelectedUser] = useState(null)
 
   const searchUser = async (query) => {
     try {
@@ -39,7 +40,7 @@ function App () {
       <UserCard
         key={user.id}
         user={user}
-        onSelect={(selected) => console.log(selected.login)}
+        onSelect={setSelectedUser}
       />
     ))
   }

@@ -1,9 +1,9 @@
-export function UserCard ({ user }) {
+export function UserCard ({ user, onSelect }) {
   return (
     <>
-      <article key={user.id}>
+      <article>
         <img src={user.avatar_url} alt='avatar url' />
-        <p>Nombre: {user.name}</p>
+        <p>login: {user.login}</p>
         <p>Tipo de cuenta: {user.type}</p>
         <p>Enlace:{' '}
           <span>
@@ -12,6 +12,7 @@ export function UserCard ({ user }) {
             </a>
           </span>
         </p>
+        <button onClick={() => onSelect(user)}>Ver Perfil</button>
       </article>
     </>
   )
