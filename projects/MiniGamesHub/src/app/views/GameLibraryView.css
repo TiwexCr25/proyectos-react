@@ -1,0 +1,75 @@
+/* ==============================
+   GAME LIBRARY CONTAINER
+============================== */
+
+.game-library {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  padding: var(--spacing-xl);
+}
+
+/* ==============================
+   LIBRARY HEADER
+============================== */
+
+.game-library__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  margin-bottom: var(--spacing-xl);
+}
+
+.game-library__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.game-library__description {
+  max-width: 600px;
+  color: var(--color-text-secondary);
+}
+
+/* ==============================
+   GAME GRID
+============================== */
+
+.game-library__grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill,
+      minmax(min(100%, 260px), 1fr));
+
+  gap: var(--spacing-lg);
+  align-items: stretch;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 768px) {
+  .game-library {
+    padding: var(--spacing-lg);
+  }
+
+  .game-library__title {
+    font-size: 24px;
+  }
+
+  .game-library__grid {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .game-library {
+    padding: var(--spacing-md);
+  }
+
+  .game-library__title {
+    font-size: 22px;
+  }
+}

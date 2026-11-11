@@ -1,0 +1,118 @@
+/* ==============================
+   GAME CARD
+============================== */
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  min-width: 0;
+  min-height: 170px;
+  padding: var(--spacing-lg);
+
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ==============================
+   HOVER STATE
+============================== */
+
+.game-card:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+
+  transform: translateY(-4px);
+
+  box-shadow: var(--shadow-card);
+}
+
+/* ==============================
+   CARD HEADER
+============================== */
+
+.game-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.game-card__category {
+  width: fit-content;
+  padding: var(--spacing-xs) var(--spacing-sm);
+
+  color: var(--color-primary-hover);
+  background-color: rgba(59, 130, 246, 0.12);
+
+  border-radius: var(--radius-full);
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ==============================
+   CARD CONTENT
+============================== */
+
+.game-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.game-card__title {
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.game-card__description {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ==============================
+   CARD ACTION INDICATOR
+============================== */
+
+.game-card__indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  margin-top: auto;
+
+  color: var(--color-text-muted);
+  font-size: 13px;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.game-card:hover .game-card__indicator {
+  color: var(--color-primary-hover);
+  transform: translateX(4px);
+}
+
+/* ==============================
+   KEYBOARD ACCESSIBILITY
+============================== */
+
+.game-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
