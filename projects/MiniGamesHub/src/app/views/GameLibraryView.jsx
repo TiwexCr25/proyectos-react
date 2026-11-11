@@ -18,7 +18,7 @@ function GameLibraryView ({ games, onSelectGame }) {
             <h2>{game.title}</h2>
             <p>{game.description}</p>
 
-            <button onClick={() => onSelectGame(game.id)}>
+            <button className='game-library__play-button' onClick={() => onSelectGame(game.id)}>
               Jugar
             </button>
           </article>
