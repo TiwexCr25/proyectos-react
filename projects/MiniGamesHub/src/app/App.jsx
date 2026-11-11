@@ -1,7 +1,12 @@
+import { AppHeader } from './components/AppHeader'
+
 function App () {
   return (
     <>
-      <h1>test</h1>
+      <AppHeader />
+      <main>
+        <p>MiniGames Hub</p>
+      </main>
     </>
   )
 }
