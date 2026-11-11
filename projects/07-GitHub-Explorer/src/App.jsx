@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import './App.css'
 
@@ -9,19 +9,20 @@ function App () {
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [hasSearched, setHasSearched] = useState(false)
 
-  const handleError = (message) => {
-    setError(message)
-  }
-
-  const searchUser = async (user) => {
+  const searchUser = async (query) => {
     try {
       setIsLoading(true)
-      const response = await fetch(`https://api.github.com/users/${user}`)
-      if (response.status === 404) throw new Error('Usuario no encontrado')
-      const data = await response.json()
-      setUsers(users => [...users, data])
       setError('')
+      if (query.trim() === '') throw new Error('La busqueda no debe estar vacia')
+      const response = await fetch(
+        `https://api.github.com/search/users?q=${encodeURIComponent(query)}&per_page=10`
+      )
+      if (!response.ok) throw new Error(`Error HTTP ${response.status}`)
+      const data = await response.json()
+      setUsers(data.items)
+      setHasSearched(true)
     } catch (e) {
       setError(e.message)
     } finally {
@@ -29,22 +30,29 @@ function App () {
     }
   }
 
+  const renderResults = () => {
+    if (isLoading) return <p>Cargando...</p>
+    if (error !== '') return <p style={{ color: 'red' }}>{error}</p>
+    if (!hasSearched) return <p>Escribe un nombre para buscar usuarios</p>
+    if (users.length === 0) return <p>No se encontraron usuarios</p>
+    return users.map(user => (
+      <UserCard
+        key={user.id}
+        user={user}
+        onSelect={(selected) => console.log(selected.login)}
+      />
+    ))
+  }
+
   return (
     <>
       <header>
         <h1>GitHub Explorer</h1>
-        <p>Buscar usuario de GitHub: </p>
-        {error !== '' && <p style={{ color: 'red' }}>{error}</p>}
-        <SearchBar
-          onSearch={searchUser}
-          onError={handleError}
-        />
-        {isLoading && <p>Cargando...</p>}
+        <p>Buscar usuario de GitHub:</p>
+        <SearchBar onSearch={searchUser} />
       </header>
       <main>
-        {users.map(user =>
-          <UserCard key={user.id} user={user} />
-        )}
+        {renderResults()}
       </main>
     </>
   )

@@ -1,15 +1,11 @@
 import { useState } from 'react'
 
-export function SearchBar ({ onSearch, onError }) {
+export function SearchBar ({ onSearch }) {
   const [text, setTex] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (text.trim() === '') {
-      onError('La busqueda no puede estar vacia')
-      return
-    }
-    onSearch(text.trim())
+    onSearch(text)
   }
 
   return (
