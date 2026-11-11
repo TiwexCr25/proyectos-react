@@ -4,6 +4,7 @@ import './App.css'
 
 import { SearchBar } from './components/SearchBar'
 import { UserCard } from './components/UserCard'
+import { UserProfile } from './components/UserProfile'
 
 function App () {
   const [users, setUsers] = useState([])
@@ -11,7 +12,7 @@ function App () {
   const [error, setError] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
-  const [prodile, setProfile] = useState(null)
+  const [profile, setProfile] = useState(null)
   const [isLoadingProfile, setIsLoadingProfile] = useState(null)
   const [profileError, setProfileError] = useState(null)
 
@@ -72,6 +73,7 @@ function App () {
         <SearchBar onSearch={searchUser} />
       </header>
       <main>
+        {profile && <UserProfile profile={profile} />}
         {renderResults()}
       </main>
     </>
