@@ -2,37 +2,28 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 
-import { SearchBar } from './componenets/SearchBar'
+import { SearchBar } from './components/SearchBar'
+import { UserCard } from './components/UserCard'
 
 function App () {
-  const [user, setUser] = useState([])
+  const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  useEffect(() => {
-    const getUser = async () => {
-      setIsLoading(true)
-      try {
-        const response = await fetch('https://api.github.com/users/octocat')
-        const data = await response.json()
-        setUser(data)
-      } catch (e) {
-        throw new Error('Error')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    getUser()
-  }, [])
+  const handleError = (message) => {
+    setError(message)
+  }
 
   const searchUser = async (user) => {
-    console.log('c')
     try {
       setIsLoading(true)
       const response = await fetch(`https://api.github.com/users/${user}`)
+      if (response.status === 404) throw new Error('Usuario no encontrado')
       const data = await response.json()
-      setUser(data)
+      setUsers(users => [...users, data])
+      setError('')
     } catch (e) {
-      throw new Error('Error')
+      setError(e.message)
     } finally {
       setIsLoading(false)
     }
@@ -40,15 +31,21 @@ function App () {
 
   return (
     <>
-      <h1>GItHub Explorer</h1>
-      <p>Buscar usuario de GitHub: </p>
-      <SearchBar
-        onSearch={searchUser}
-      />
-      {isLoading && <p>Cardando...</p>}
-
-      <p>Usuario: {user.name}</p>
-      <img src={user.avatar_url} alt='gitHub avatar url' />
+      <header>
+        <h1>GitHub Explorer</h1>
+        <p>Buscar usuario de GitHub: </p>
+        {error !== '' && <p style={{ color: 'red' }}>{error}</p>}
+        <SearchBar
+          onSearch={searchUser}
+          onError={handleError}
+        />
+        {isLoading && <p>Cargando...</p>}
+      </header>
+      <main>
+        {users.map(user =>
+          <UserCard key={user.id} user={user} />
+        )}
+      </main>
     </>
   )
 }
