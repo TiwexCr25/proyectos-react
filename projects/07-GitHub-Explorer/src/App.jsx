@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import './App.css'
 
@@ -11,7 +11,26 @@ function App () {
   const [error, setError] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const [prodile, setProfile] = useState(null)
+  const [isLoadingProfile, setIsLoadingProfile] = useState(null)
+  const [profileError, setProfileError] = useState(null)
 
+  useEffect(() => {
+    if (!selectedUser) return
+    const getProfile = async () => {
+      try {
+        const response = await fetch(`https://api.github.com/users/${selectedUser.login}`)
+        if (!response.ok) throw new Error(`Error HTTP ${response.status}`)
+        const data = await response.json()
+        setProfile(data)
+      } catch (e) {
+        console.log(e.message)
+      }
+    }
+    getProfile()
+  }, [selectedUser?.login])
+
+  // `profile`, `isLoadingProfile` y `profileError`.
   const searchUser = async (query) => {
     try {
       setIsLoading(true)
