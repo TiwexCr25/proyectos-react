@@ -1,7 +1,7 @@
-export function GameCelll () {
+export function Celll ({ index, cell, onClick }) {
   return (
-    <>
-      <p>cell</p>
-    </>
+    <div className='tic-tac-toe__cell' onClick={() => onClick(index)}>
+      <p>{cell}</p>
+    </div>
   )
 }

@@ -1,4 +1,5 @@
 import { GameBoard } from './components/GameBoard'
+import './styles/tic-tac-toe.css'
 
 function TicTacToeGame () {
   return (
