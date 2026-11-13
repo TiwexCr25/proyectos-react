@@ -6,7 +6,6 @@ function TicTacToeGame () {
     <div className='tic-tac-toe'>
       <h1>TicTacToe</h1>
       <GameBoard />
-      <button>Reiniciar</button>
     </div>
   )
 }
