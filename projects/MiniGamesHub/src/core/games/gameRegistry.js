@@ -1,7 +1,9 @@
 import ticTacToe from '../../games/tic-tac-toe'
+import memoryCards from '../../games/memory-cards'
 
 export const gameRegistry = [
-  ticTacToe
+  ticTacToe,
+  memoryCards
 ]
 
 export function getGameById (id) {
