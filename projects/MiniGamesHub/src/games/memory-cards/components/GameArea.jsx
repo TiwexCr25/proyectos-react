@@ -17,7 +17,7 @@ export function GameArea ({ onCancel, boardSize }) {
 
   return (
     <>
-      <button onClick={() => onCancel(false)}>Regresar</button>
+      <button onClick={() => onCancel()}>Regresar</button>
       <h1>Board: {boardSize}</h1>
       <div
         className='BoardCardsCotaniner'
