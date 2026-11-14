@@ -39,12 +39,6 @@
     border-color 0.2s ease;
 }
 
-.game-session__back-button:hover {
-  color: var(--color-text-primary);
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-border-hover);
-}
-
 .game-session__information {
   display: flex;
   flex-direction: column;

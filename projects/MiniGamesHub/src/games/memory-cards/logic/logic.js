@@ -9,7 +9,8 @@ export const getRandomCards = (boardSize) => {
     emoji,
     symbol: '?',
     hidden: true,
-    matched: false
+    matched: false,
+    wrong: false
   }))
 
   const pairs = uniqueCards.flatMap((card) => [
