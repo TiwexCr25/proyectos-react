@@ -10,17 +10,20 @@ export function GameArea ({ onCancel, boardSize }) {
   const cols = Math.ceil(Math.sqrt(cards.length))
 
   const selectedCard = (card) => {
+    const index = cards.findIndex(c => c.id === card.id)
+    if ((!cards[index].hidden || cards[index].matched) && !cards[index].wrong) return
+
     const baseCards = anyWrongCard
       ? cards.map(c => c.wrong ? { ...c, wrong: false, hidden: true } : c)
       : cards
 
     if (anyWrongCard) setAnyWrongCard(false)
+
     const newCards = [...baseCards]
-    const index = newCards.findIndex(c => c.id === card.id)
-    if (!newCards[index].hidden && newCards[index].matched) return
     newCards[index] = { ...newCards[index], hidden: false }
     setCards(newCards)
-    if (selectedAmount < 1) setSelectedAmount(selectedAmount => selectedAmount + 1)
+
+    if (selectedAmount < 1) setSelectedAmount(prev => prev + 1)
     else {
       chechPair(newCards)
       setSelectedAmount(0)
