@@ -1,7 +1,7 @@
-export function CardContainer ({ card }) {
+export function CardContainer ({ card, onSelectedCard }) {
   return (
-    <button>
-      <p>{card}</p>
+    <button onClick={() => onSelectedCard(card)}>
+      <p>{card.hidden ? card.symbol : card.emoji}</p>
     </button>
   )
 }

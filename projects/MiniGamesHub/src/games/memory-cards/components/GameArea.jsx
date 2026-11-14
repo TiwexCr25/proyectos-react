@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import { getRandomCards } from '../logic/logic'
-import { CardContainer } from './CardContainer'
+import { CardContainer } from './CardContainer.jsx'
 
 export function GameArea ({ onCancel, boardSize }) {
   const [cards, setCards] = useState(() => getRandomCards(boardSize))
 
   const cols = Math.ceil(Math.sqrt(cards.length))
+
+  const selectedCard = (card) => {
+    const newCards = [...cards]
+    const index = newCards.findIndex(c => c.id === card.id)
+    if (!newCards[index].hidden || newCards[index].matched) return
+    newCards[index] = { ...newCards[index], hidden: false }
+    setCards(newCards)
+  }
 
   return (
     <>
@@ -16,8 +24,8 @@ export function GameArea ({ onCancel, boardSize }) {
         style={{ '--cols': cols > 6 ? 6 : cols }}
       >
         {
-        cards.map((card, index) => (
-          <CardContainer key={index} card={card} />
+        cards.map((card) => (
+          <CardContainer key={card.id} card={card} onSelectedCard={selectedCard} />
         ))
       }
       </div>
