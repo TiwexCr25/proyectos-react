@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { getRandomCards } from '../logic/logic'
 import { CardContainer } from './CardContainer.jsx'
 
@@ -7,8 +7,21 @@ export function GameArea ({ onCancel, boardSize }) {
   const [selectedAmount, setSelectedAmount] = useState(0)
   const [anyWrongCard, setAnyWrongCard] = useState(false)
   const [attemps, setAttemps] = useState(0)
+  const [completed, setCompleted] = useState(false)
 
   const cols = Math.ceil(Math.sqrt(cards.length))
+
+  useEffect(() => {
+    if (cards.length > 0 && cards.every(c => c.matched)) setCompleted(true)
+  }, [cards])
+
+  const resetGameArea = () => {
+    setCompleted(false)
+    setSelectedAmount(0)
+    setAnyWrongCard(false)
+    setAttemps(0)
+    setCards(getRandomCards(boardSize))
+  }
 
   const selectedCard = (card) => {
     const index = cards.findIndex(c => c.id === card.id)
@@ -74,6 +87,11 @@ export function GameArea ({ onCancel, boardSize }) {
         ))
       }
       </div>
+      {completed &&
+        <>
+          <p>Juego Completado!</p>
+          <button onClick={() => resetGameArea()}>Reiniciar</button>
+        </>}
     </>
   )
 }
