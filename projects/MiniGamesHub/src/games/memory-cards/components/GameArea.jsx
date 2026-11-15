@@ -22,7 +22,7 @@ export function GameArea ({ onCancel, boardSize }) {
       <h1>Tiempo: {start ? timeText() : 'empieza a voltear las cartas para iniciar'}</h1>
       <h1>Intentos: {attempts}</h1>
       <div
-        className='BoardCardsCotainer'
+        className='BoardCardsContainer'
         style={{ '--cols': cols > 6 ? 6 : cols }}
       >
         {
@@ -38,6 +38,7 @@ export function GameArea ({ onCancel, boardSize }) {
             <h2>Felicidades Completaste el juego con tiempo: {timeText()}</h2>
             <p>Intentos realizados: {attempts}</p>
             <button onClick={() => setShowModal(false)}>Cerrar</button>
+            <button onClick={() => { setShowModal(false); resetGameArea() }}>Reiniciar</button>
           </Modal>
         </>}
     </>
