@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getRandomCards } from '../logic/logic'
 import { CardContainer } from './CardContainer.jsx'
 
@@ -8,6 +8,7 @@ export function GameArea ({ onCancel, boardSize }) {
   const [anyWrongCard, setAnyWrongCard] = useState(false)
   const [attempts, setAttempts] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const timeOutRef = useRef(null)
 
   const cols = Math.ceil(Math.sqrt(cards.length))
 
@@ -16,6 +17,10 @@ export function GameArea ({ onCancel, boardSize }) {
   }, [cards])
 
   const resetGameArea = () => {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+      timeOutRef.current = null
+    }
     setCompleted(false)
     setSelectedAmount(0)
     setAnyWrongCard(false)
@@ -71,6 +76,15 @@ export function GameArea ({ onCancel, boardSize }) {
       const isInPair = pairs.some(par => par.id === card.id)
       return isInPair ? { ...card, wrong: true } : card
     }))
+
+    if (timeOutRef.current) clearTimeout(timeOutRef.current)
+
+    timeOutRef.current = setTimeout(() => {
+      setCards(prev => prev.map(card =>
+        card.wrong ? { ...card, wrong: false, hidden: true } : card
+      ))
+      timeOutRef.current = null
+    }, 800)
   }
 
   return (
