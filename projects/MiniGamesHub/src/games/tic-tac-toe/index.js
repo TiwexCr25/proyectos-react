@@ -2,8 +2,8 @@ import TicTacToeGame from './TicTacToeGame'
 
 const ticTacToe = {
   id: 'tic-tac-toe',
-  title: 'Tic Tac Toe',
-  description: 'Classic strategy game',
+  title: 'El gato',
+  description: 'Juego de 3 en raya',
   category: 'Strategy',
   Component: TicTacToeGame
 }
