@@ -6,6 +6,7 @@ export function GameArea ({ onCancel, boardSize }) {
   const [cards, setCards] = useState(() => getRandomCards(boardSize))
   const [selectedAmount, setSelectedAmount] = useState(0)
   const [anyWrongCard, setAnyWrongCard] = useState(false)
+  const [attemps, setAttemps] = useState(0)
 
   const cols = Math.ceil(Math.sqrt(cards.length))
 
@@ -41,6 +42,7 @@ export function GameArea ({ onCancel, boardSize }) {
       console.log('no es par')
       worngCards(pairs)
     }
+    setAttemps(prev => prev + 1)
   }
 
   const matchCards = (pairs) => {
@@ -61,7 +63,7 @@ export function GameArea ({ onCancel, boardSize }) {
   return (
     <>
       <button onClick={() => onCancel()}>Regresar</button>
-      <h1>Board: {boardSize}</h1>
+      <h1>Intentos: {attemps}</h1>
       <div
         className='BoardCardsCotaniner'
         style={{ '--cols': cols > 6 ? 6 : cols }}
