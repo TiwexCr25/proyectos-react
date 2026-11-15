@@ -6,7 +6,6 @@ import Modal from '../../../shared/components/Modal.jsx'
 export function GameArea ({ onCancel, boardSize }) {
   const [start, setStart] = useState(false)
   const [cards, setCards] = useState(() => getRandomCards(boardSize))
-  const [selectedAmount, setSelectedAmount] = useState(0)
   const [anyWrongCard, setAnyWrongCard] = useState(false)
   const [attempts, setAttempts] = useState(0)
   const [completed, setCompleted] = useState(false)
@@ -52,7 +51,6 @@ export function GameArea ({ onCancel, boardSize }) {
     setStart(false)
     setSeconds(0)
     setCompleted(false)
-    setSelectedAmount(0)
     setAnyWrongCard(false)
     setAttempts(0)
     setCards(getRandomCards(boardSize))
@@ -72,12 +70,7 @@ export function GameArea ({ onCancel, boardSize }) {
     const newCards = [...baseCards]
     newCards[index] = { ...newCards[index], hidden: false }
     setCards(newCards)
-
-    if (selectedAmount < 1) setSelectedAmount(prev => prev + 1)
-    else {
-      checkPair(newCards)
-      setSelectedAmount(0)
-    }
+    checkPair(newCards)
   }
 
   const checkPair = (newCards) => {
