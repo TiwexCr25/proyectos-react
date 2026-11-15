@@ -3,24 +3,49 @@ import { getRandomCards } from '../logic/logic'
 import { CardContainer } from './CardContainer.jsx'
 
 export function GameArea ({ onCancel, boardSize }) {
+  const [start, setStart] = useState(false)
   const [cards, setCards] = useState(() => getRandomCards(boardSize))
   const [selectedAmount, setSelectedAmount] = useState(0)
   const [anyWrongCard, setAnyWrongCard] = useState(false)
   const [attempts, setAttempts] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const [seconds, setSeconds] = useState(0)
+
   const timeOutRef = useRef(null)
+  const intervalRef = useRef(null)
 
   const cols = Math.ceil(Math.sqrt(cards.length))
 
   useEffect(() => {
+    if (completed || !start) return
+
+    intervalRef.current = setInterval(() => {
+      setSeconds(prev => prev + 1)
+    }, 1000)
+
+    return () => clearInterval(intervalRef.current)
+  }, [completed, start])
+
+  useEffect(() => {
     if (cards.length > 0 && cards.every(c => c.matched)) setCompleted(true)
   }, [cards])
+
+  const timeText = () => {
+    const minutes = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    const time = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+    return time
+  }
 
   const resetGameArea = () => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
       timeOutRef.current = null
     }
+    if (intervalRef.current) clearInterval(intervalRef.current)
+
+    setStart(false)
+    setSeconds(0)
     setCompleted(false)
     setSelectedAmount(0)
     setAnyWrongCard(false)
@@ -29,6 +54,7 @@ export function GameArea ({ onCancel, boardSize }) {
   }
 
   const selectedCard = (card) => {
+    if (!start) setStart(true)
     const index = cards.findIndex(c => c.id === card.id)
     if ((!cards[index].hidden || cards[index].matched) && !cards[index].wrong) return
 
@@ -90,8 +116,9 @@ export function GameArea ({ onCancel, boardSize }) {
   return (
     <>
       <button onClick={() => onCancel()}>Regresar</button>
+      <h1>Tiempo: {start ? timeText() : 'empieza a voltear las cartas para iniciar'}</h1>
       <h1>Intentos: {attempts}</h1>
-      <divs
+      <div
         className='BoardCardsCotainer'
         style={{ '--cols': cols > 6 ? 6 : cols }}
       >
@@ -100,7 +127,7 @@ export function GameArea ({ onCancel, boardSize }) {
           <CardContainer key={card.id} card={card} onSelectedCard={selectedCard} />
         ))
       }
-      </divs>
+      </div>
       {completed &&
         <>
           <p>Juego Completado!</p>
