@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { getRandomCards } from '../logic/logic'
 import { CardContainer } from './CardContainer.jsx'
+import Modal from '../../../shared/components/Modal.jsx'
 
 export function GameArea ({ onCancel, boardSize }) {
   const [start, setStart] = useState(false)
@@ -10,6 +11,7 @@ export function GameArea ({ onCancel, boardSize }) {
   const [attempts, setAttempts] = useState(0)
   const [completed, setCompleted] = useState(false)
   const [seconds, setSeconds] = useState(0)
+  const [showModal, setShowModal] = useState(false)
 
   const timeOutRef = useRef(null)
   const intervalRef = useRef(null)
@@ -27,7 +29,10 @@ export function GameArea ({ onCancel, boardSize }) {
   }, [completed, start])
 
   useEffect(() => {
-    if (cards.length > 0 && cards.every(c => c.matched)) setCompleted(true)
+    if (cards.length > 0 && cards.every(c => c.matched)) {
+      setCompleted(true)
+      setShowModal(true)
+    }
   }, [cards])
 
   const timeText = () => {
@@ -132,6 +137,11 @@ export function GameArea ({ onCancel, boardSize }) {
         <>
           <p>Juego Completado!</p>
           <button onClick={() => resetGameArea()}>Reiniciar</button>
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+            <h2>¡Hola! Soy el modal</h2>
+            <p>Estoy por encima de todo, aunque mi papá esté adentro de un div raro.</p>
+            <button onClick={() => setShowModal(false)}>Cerrar</button>
+          </Modal>
         </>}
     </>
   )
