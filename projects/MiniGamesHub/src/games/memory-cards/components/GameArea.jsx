@@ -135,11 +135,10 @@ export function GameArea ({ onCancel, boardSize }) {
       </div>
       {completed &&
         <>
-          <p>Juego Completado!</p>
           <button onClick={() => resetGameArea()}>Reiniciar</button>
           <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-            <h2>¡Hola! Soy el modal</h2>
-            <p>Estoy por encima de todo, aunque mi papá esté adentro de un div raro.</p>
+            <h2>Felicidades Completaste el juego con tiempo: {timeText()}</h2>
+            <p>Intentos realizados: {attempts}</p>
             <button onClick={() => setShowModal(false)}>Cerrar</button>
           </Modal>
         </>}
