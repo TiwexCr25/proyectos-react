@@ -6,7 +6,7 @@ export function GameArea ({ onCancel, boardSize }) {
   const [cards, setCards] = useState(() => getRandomCards(boardSize))
   const [selectedAmount, setSelectedAmount] = useState(0)
   const [anyWrongCard, setAnyWrongCard] = useState(false)
-  const [attemps, setAttemps] = useState(0)
+  const [attempts, setAttempts] = useState(0)
   const [completed, setCompleted] = useState(false)
 
   const cols = Math.ceil(Math.sqrt(cards.length))
@@ -19,7 +19,7 @@ export function GameArea ({ onCancel, boardSize }) {
     setCompleted(false)
     setSelectedAmount(0)
     setAnyWrongCard(false)
-    setAttemps(0)
+    setAttempts(0)
     setCards(getRandomCards(boardSize))
   }
 
@@ -39,12 +39,12 @@ export function GameArea ({ onCancel, boardSize }) {
 
     if (selectedAmount < 1) setSelectedAmount(prev => prev + 1)
     else {
-      chechPair(newCards)
+      checkPair(newCards)
       setSelectedAmount(0)
     }
   }
 
-  const chechPair = (newCards) => {
+  const checkPair = (newCards) => {
     const pairs = newCards.filter(card => !card.hidden && !card.matched)
     console.log(pairs)
     if (pairs.length < 2) return
@@ -53,9 +53,9 @@ export function GameArea ({ onCancel, boardSize }) {
       matchCards(pairs)
     } else {
       console.log('no es par')
-      worngCards(pairs)
+      wrongCards(pairs)
     }
-    setAttemps(prev => prev + 1)
+    setAttempts(prev => prev + 1)
   }
 
   const matchCards = (pairs) => {
@@ -65,7 +65,7 @@ export function GameArea ({ onCancel, boardSize }) {
     }))
   }
 
-  const worngCards = (pairs) => {
+  const wrongCards = (pairs) => {
     setAnyWrongCard(true)
     setCards(prev => prev.map(card => {
       const isInPair = pairs.some(par => par.id === card.id)
@@ -76,9 +76,9 @@ export function GameArea ({ onCancel, boardSize }) {
   return (
     <>
       <button onClick={() => onCancel()}>Regresar</button>
-      <h1>Intentos: {attemps}</h1>
-      <div
-        className='BoardCardsCotaniner'
+      <h1>Intentos: {attempts}</h1>
+      <divs
+        className='BoardCardsCotainer'
         style={{ '--cols': cols > 6 ? 6 : cols }}
       >
         {
@@ -86,7 +86,7 @@ export function GameArea ({ onCancel, boardSize }) {
           <CardContainer key={card.id} card={card} onSelectedCard={selectedCard} />
         ))
       }
-      </div>
+      </divs>
       {completed &&
         <>
           <p>Juego Completado!</p>

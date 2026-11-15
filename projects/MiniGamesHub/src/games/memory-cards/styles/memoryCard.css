@@ -10,7 +10,7 @@ select {
   width: fit-content;
 }
 
-.BoardCardsCotaniner {
+.BoardCardsCotainer {
   display: grid;
   gap: var(--spacing-sm);
   grid-template-columns: repeat(var(--cols, 4), 1fr);
@@ -18,7 +18,7 @@ select {
   max-width: 500px;
 }
 
-.BoardCardsCotaniner button {
+.BoardCardsCotainer button {
   width: 100%;
   aspect-ratio: 1;
   min-height: 0;
@@ -32,7 +32,7 @@ select {
   container-type: inline-size;
 }
 
-.BoardCardsCotaniner button span {
+.BoardCardsCotainer button span {
   font-size: 60cqw;
   line-height: 1;
   display: flex;
