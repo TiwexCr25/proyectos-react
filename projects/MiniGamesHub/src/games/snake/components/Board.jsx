@@ -6,8 +6,6 @@ const cellType = {
 }
 
 export function Board ({ world }) {
-  console.log('archivo board cargado')
-
   const cols = Math.sqrt(world.length)
   return (
     <>
@@ -18,7 +16,7 @@ export function Board ({ world }) {
         {world.map((cell, index) => {
           return (
             <div key={index} className='cell'>
-              {cellType[cell.type]}
+              <span className='cell-content'>{cellType[cell.type]}</span>
             </div>
           )
         })}
