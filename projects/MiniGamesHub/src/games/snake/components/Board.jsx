@@ -8,7 +8,7 @@ export function Board ({ size }) {
     >
       {Array.from({ length: totalCells }).map((_, i) => (
         <div key={i} className='cell'>
-          {i}
+          {' '}
         </div>
       ))}
     </div>

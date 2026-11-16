@@ -1,6 +1,6 @@
 export function Settings ({ onStart, onSize }) {
   return (
-    <div className='game-container'>
+    <div className='game-container-settings'>
       <h1>Snake Game</h1>
       <div className='form-row'>
         <label htmlFor='map-size'>Tamaño del mapa:</label>
