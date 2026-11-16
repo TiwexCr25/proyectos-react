@@ -87,6 +87,7 @@ button {
 button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
 
@@ -155,7 +156,6 @@ svg {
 select {
   display: inline-flex;
   align-items: center;
-  width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
 
   color: var(--color-text-secondary);

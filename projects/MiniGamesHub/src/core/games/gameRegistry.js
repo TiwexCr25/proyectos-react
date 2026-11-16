@@ -1,9 +1,11 @@
 import ticTacToe from '../../games/tic-tac-toe'
 import memoryCards from '../../games/memory-cards'
+import snakeGame from '../../games/snake'
 
 export const gameRegistry = [
   ticTacToe,
-  memoryCards
+  memoryCards,
+  snakeGame
 ]
 
 export function getGameById (id) {

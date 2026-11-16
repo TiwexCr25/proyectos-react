@@ -1,0 +1,40 @@
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+}
+
+.form-row select {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.board {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: 4px;
+}
+
+.cell {
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
