@@ -1,0 +1,53 @@
+# Reglas del proyecto
+
+Responde siempre en español. Los comentarios en el código deben ser breves y en español.
+
+## Stack
+
+- React con componentes de función y hooks (nada de clases).
+- JSX en archivos `.jsx` (JavaScript, no TypeScript).
+- Vite como herramienta de build y servidor de desarrollo.
+- Gestor de paquetes: npm.
+- JavaScript moderno con ES modules (`import` / `export`).
+
+## Estilo de código (ESLint "standard")
+
+- Indentación de **2 espacios**. Nunca 4 espacios ni tabulaciones.
+- Sin punto y coma al final de las líneas.
+- Comillas simples, también en atributos JSX.
+- Espacio antes del paréntesis en funciones declaradas: `function foo () {}`.
+- Usa `const` y `let`; nunca `var`.
+- Usa `===` y `!==`, nunca `==` ni `!=`.
+- Sin espacios sobrantes al final de línea y una línea en blanco al final del archivo.
+- Sin variables ni imports sin usar.
+- No cambies la configuración de ESLint ni de `.editorconfig` sin preguntarme.
+- Antes de dar una tarea por terminada, corre el linter: `npm run lint` si existe; si no, `npx eslint . --fix`. Corrige lo que quede.
+
+## Estructura del proyecto
+
+- `src/components/` para componentes (`PascalCase.jsx`, un componente por archivo).
+- `src/hooks/` para hooks personalizados (`useAlgo.js`, deben empezar con `use`).
+- `src/services/` para llamadas a APIs (funciones con `fetch`), separadas de los componentes.
+- Punto de entrada en `src/main.jsx` y componente raíz en `src/App.jsx`.
+- Archivos estáticos en `public/`.
+
+## Buenas prácticas de React
+
+- Estado con `useState` y efectos con `useEffect`. Nunca mutes el estado directamente.
+- Pon siempre `key` estable en listas; no uses el índice si los elementos pueden cambiar.
+- En peticiones a APIs maneja los estados de **loading** y **error**, y limpia los efectos cuando haga falta.
+- Mantén los componentes pequeños. Si uno crece mucho, sepáralo.
+- Variables de entorno: usa `import.meta.env.VITE_*`. Nunca escribas claves de API en el código.
+
+## Cómo trabajar
+
+- Antes de cambiar código, explica brevemente tu plan.
+- Haz cambios pequeños y enfocados. Si una tarea es grande, divídela en pasos y pregúntame.
+- No instales dependencias nuevas sin preguntarme antes.
+- No borres archivos, no toques `.env` y no hagas `git commit` ni `git push` salvo que te lo pida.
+- No reescribas archivos completos si basta con un cambio puntual.
+
+## Al terminar cada tarea
+
+- Resume qué archivos modificaste y por qué.
+- Indica cómo probarlo (por ejemplo `npm run dev` y qué revisar en el navegador).
